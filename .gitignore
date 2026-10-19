@@ -1,0 +1,14 @@
+.venv/
+.venv-windows/
+data/
+__pycache__/
+*.pyc
+*.sqlite3*
+*.pem
+*.cer
+*.pfx
+*.key
+.DS_Store
+._*
+.env
+.env.*

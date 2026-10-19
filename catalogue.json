@@ -1,0 +1,50 @@
+[
+  {
+    "barcode": "6937285508867",
+    "material": "TPU 85A",
+    "color": "Black",
+    "source": "https://bambu-lab-jp.myshopify.com/en/products/tpu-85a-tpu-90a.js",
+    "aliases": [
+      "U04-K0-1.75-1000-SPL",
+      "51107"
+    ]
+  },
+  {
+    "barcode": "850081448068",
+    "material": "PETG Basic",
+    "color": "Black",
+    "source": "User packaging photo IMG_7333.HEIC (UPC, Black, filament code 30105); https://bambu-lab-jp.myshopify.com/en/products/petg-basic.js (30105 = PETG Basic Black)",
+    "aliases": [
+      "30105",
+      "G00-K00-1.75-1000-SPL"
+    ]
+  },
+  {
+    "barcode": "6937285508836",
+    "material": "TPU 90A",
+    "color": "Grape Jelly",
+    "source": "https://bambu-lab-jp.myshopify.com/en/products/tpu-85a-tpu-90a.js",
+    "aliases": []
+  },
+  {
+    "barcode": "6937285508850",
+    "material": "TPU 90A",
+    "color": "Crystal Blue",
+    "source": "https://bambu-lab-jp.myshopify.com/en/products/tpu-85a-tpu-90a.js",
+    "aliases": []
+  },
+  {
+    "barcode": "6937285509239",
+    "material": "TPU 85A",
+    "color": "Flesh",
+    "source": "https://bambu-lab-jp.myshopify.com/en/products/tpu-85a-tpu-90a.js",
+    "aliases": []
+  },
+  {
+    "barcode": "6937285509246",
+    "material": "TPU 85A",
+    "color": "Lime Green",
+    "source": "https://bambu-lab-jp.myshopify.com/en/products/tpu-85a-tpu-90a.js",
+    "aliases": []
+  }
+]

@@ -1,0 +1,72 @@
+FILAMENT LOCAL — BAMBU LAB
+
+INSTALLATION WINDOWS
+1. Copier tout le dossier filament-local sur le PC Windows (pas seulement les lanceurs).
+2. Installer Python 3 depuis https://www.python.org/downloads/windows/ si absent.
+3. Double-cliquer Installer-Windows.bat. Internet est nécessaire à cette installation initiale.
+4. Double-cliquer Demarrer-Windows.bat. Garder sa fenêtre ouverte.
+5. Autoriser Python dans le pare-feu uniquement sur le réseau privé. Ne pas ouvrir de port sur la box.
+6. Ouvrir l’adresse réseau HTTPS affichée (port 8443) sur le téléphone et l’iPad, connectés au même réseau.
+Le PC doit rester allumé. Aucun service externe n’est utilisé lors du fonctionnement.
+
+CAMERA ET CERTIFICAT LOCAL
+Le premier lancement Windows crée un certificat propre à ce PC dans data.
+Sur le PC, accéder à https://localhost:8443 puis télécharger /certificat.crt.
+Transférer uniquement le certificat public sur le téléphone (jamais key.pem ni root-key.pem). Le certificat racine public est data/tap-in-root.cer.
+Sur iPhone/iPad : installer le profil de certificat dans Réglages > Général > VPN et gestion de l’appareil, puis activer la confiance dans Réglages > Général > Informations > Réglages des certificats.
+Sur Android : importer le certificat dans les paramètres de sécurité/certificats utilisateur (les intitulés varient).
+Ouvrir ensuite l’adresse HTTPS affichée et autoriser la caméra. Un simple contournement de l’avertissement HTTPS ne garantit pas le scan sur tous les navigateurs.
+Si l’adresse IP du PC change ou après un an, arrêter le serveur, redémarrer : le certificat serveur sera actualisé automatiquement. Le certificat racine reste identique.
+Il est préférable de réserver une adresse IP au PC dans les paramètres du routeur.
+
+UTILISATION
+Une fiche correspond à UNE bobine physique. Plusieurs bobines peuvent partager le même code produit.
+Au premier scan, saisir matière et couleur. Aux scans suivants, ces champs sont repris depuis une bobine existante : vérifier puis enregistrer.
+Scanner crée une nouvelle fiche à confirmer, il ne modifie pas automatiquement une bobine existante. Utiliser la recherche et Gérer pour modifier une bobine.
+Le catalogue embarqué reconnaît notamment 6937285508867 (TPU 85A Black) et 850081448068 (PETG Basic Black).
+Le poids restant est renseigné manuellement. Aucune connexion à l’imprimante ou à l’AMS.
+La barre représente le poids par rapport à une bobine de 1 kg.
+Les autres écrans actualisent le stock toutes les 15 secondes.
+Tous les utilisateurs du réseau local qui accèdent à l’application peuvent modifier le stock : cette première version n’a pas de comptes.
+
+SAUVEGARDES ET TRANSFERT
+Sauvegarder télécharge un JSON ; Restaurer remplace le stock après confirmation.
+Les données principales sont dans data/stock.sqlite3. Arrêter le serveur avant de copier tout le dossier pour une sauvegarde complète.
+Ne pas transférer .venv entre Mac et Windows : exécuter l’installation Windows.
+Les bibliothèques du scanner sont intégrées dans static/vendor pour fonctionner sans Internet.
+
+APERÇU MAC
+Double-cliquer Lancer-Mac.command ou lancer : python3 server.py --http
+Ouvrir http://localhost:8080. Ce mode de développement est accessible uniquement depuis le Mac.
+Le mode Windows HTTPS nécessite la dépendance cryptography installée par le lanceur.
+
+LIMITES DE VALIDATION
+La version Windows et la caméra des appareils doivent être validées sur les appareils réels ; un test sur Mac ne les remplace pas.
+
+ACCÈS RÉSEAU DEPUIS LE MAC
+Lancer Lancer-Reseau-Mac.command, puis ouvrir l’adresse HTTPS affichée sur l’iPhone.
+Pour installer le certificat sans avertissement HTTPS préalable : ouvrir dans Safari http://ADRESSE-DU-MAC:8081/tap-in-root.cer.
+Le port 8081 ne sert que le certificat public, jamais le stock ou les clés privées.
+Installer le profil TAP IN Local CA, puis activer sa confiance dans Réglages > Général > Informations > Réglages des certificats.
+Le Mac doit rester éveillé et connecté au même réseau Wi-Fi.
+
+RECONNAISSANCE AUTOMATIQUE
+Le catalogue initial contient 6 codes-barres vérifiés, dont les deux étiquettes fournies. Il ne couvre pas toute la gamme Bambu Lab.
+Le scan ou la saisie d’un code connu remplit matière et couleur avant validation. UPC-A et EAN-13 avec zéro initial sont reconnus comme équivalents.
+Les codes inconnus sont renseignés une fois, puis mémorisés dans la table products de la base locale, même après suppression de la bobine.
+Les sauvegardes JSON version 2 incluent les associations ; les anciennes sauvegardes version 1 restent acceptées.
+Aucune requête Internet n’est effectuée lors du scan. Les sources des entrées initiales sont conservées dans catalogue.json.
+
+VUE DU STOCK
+By color regroupe les bobines par matière et couleur et additionne leur poids disponible.
+Les bobines Terminée ou à 0 g ne comptent pas comme disponibles.
+Running low filtre les groupes dont le total disponible est compris entre 1 et 250 g.
+Out of stock montre les groupes déjà enregistrés dont le poids disponible est nul.
+Les compteurs et Material breakdown concernent tout le stock ; les cartes suivent les filtres.
+Individual spools affiche chaque bobine ; Update ouvre son formulaire de poids/statut.
+
+SCAN POUR SUPPRIMER
+Scan to remove ouvre le scanner en mode suppression. Après lecture, choisir une bobine parmi les correspondances, puis confirmer sa suppression définitive.
+Le code produit peut être commun à plusieurs bobines : les correspondances indiquent armoire, poids, statut et numéro interne.
+Un code inconnu ne supprime rien. La recherche porte sur tout le stock, indépendamment des filtres de l’écran principal.
+Enter barcode manually permet aussi de rechercher sans caméra. Les codes UPC et EAN équivalents sont rapprochés.
