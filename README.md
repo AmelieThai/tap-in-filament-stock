@@ -19,6 +19,18 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install-Windows.ps1
 
 The execution policy argument applies only to this installer process. It does not change the machine's execution policy. Review the script before running it.
 
+## Download and install from PowerShell
+
+Download `Download-Install-Windows.ps1` from this private repository while signed in to GitHub. Save the actual raw file, not the HTML page. Then run:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$env:USERPROFILE\Downloads\Download-Install-Windows.ps1"
+```
+
+This script uses winget to install GitHub CLI and Python if needed, signs in to GitHub interactively, downloads the private repository and installs the app in `Documents\TAP-IN`. It starts the local server after installation. An existing destination is never overwritten. You can choose another folder with `-Destination "C:\Users\YourName\Documents\TapInNew"`.
+
+Windows Package Manager (App Installer) must be available. Your GitHub account must have access to this repository. No token is embedded in the script. Existing stock must be transferred privately using the instructions below. This script still needs validation on the target Windows PC.
+
 ## iPhone setup
 
 Connect to the same Wi-Fi as the Windows PC. Download the public certificate from `http://PC-IP:8081/tap-in-root.cer` in Safari. Install **TAP IN Local CA** in Settings → General → VPN & Device Management, then enable trust in General → About → Certificate Trust Settings. Open `https://PC-IP:8443` and allow the camera. You may add this page to the home screen.
